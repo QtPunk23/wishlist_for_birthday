@@ -5,6 +5,7 @@ function getCategoryIcon(category) {
     'Косметика': '💄',
     'Сумочка': '👜',
     'Спальня': '🛏️',
+    'Здоровье и красота': '💆',
   }
   return icons[category] || '🎀'
 }
