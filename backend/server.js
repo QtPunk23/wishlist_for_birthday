@@ -20,12 +20,9 @@ app.use(express.json())
 // Initialize database
 initDatabase()
 
-// Auto-seed if database is empty
-const giftCount = db.prepare('SELECT COUNT(*) as count FROM gifts').get()
-if (giftCount.count === 0) {
-  console.log('Database is empty, seeding...')
-  seed()
-}
+// Always seed on startup to ensure fresh data
+console.log('Seeding database...')
+seed()
 
 // API Routes
 app.use('/api/gifts', giftsRouter)
