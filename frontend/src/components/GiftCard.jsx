@@ -15,6 +15,8 @@ function getClaimedGifts() {
 export default function GiftCard({ gift, onClaimClick, onUnclaim }) {
   const [showConfirm, setShowConfirm] = useState(false)
   const [unclaiming, setUnclaiming] = useState(false)
+  const [showNameInput, setShowNameInput] = useState(false)
+  const [inputName, setInputName] = useState('')
 
   const guestName = getGuestName()
   const claimedGifts = getClaimedGifts()
@@ -31,6 +33,21 @@ export default function GiftCard({ gift, onClaimClick, onUnclaim }) {
     } finally {
       setUnclaiming(false)
       setShowConfirm(false)
+    }
+  }
+
+  const handleUnclaimWithNewName = async () => {
+    if (!inputName.trim()) return
+    localStorage.setItem('guestName', inputName.trim())
+    setUnclaiming(true)
+    try {
+      await onUnclaim(gift.id)
+      setShowNameInput(false)
+      setInputName('')
+    } catch (err) {
+      alert(err.message || 'Не удалось снять бронь')
+    } finally {
+      setUnclaiming(false)
     }
   }
 
@@ -97,7 +114,45 @@ export default function GiftCard({ gift, onClaimClick, onUnclaim }) {
               </div>
             )}
           </div>
-        ) : null}
+        ) : (
+          <div className="claimed-actions">
+            {!showNameInput ? (
+              <button
+                className="btn btn-outline btn-unclaim"
+                onClick={() => setShowNameInput(true)}
+              >
+                Снять бронь
+              </button>
+            ) : (
+              <div className="confirm-unclaim">
+                <span>Введи имя, которым бронировала:</span>
+                <input
+                  type="text"
+                  value={inputName}
+                  onChange={(e) => setInputName(e.target.value)}
+                  placeholder="Твоё имя"
+                  className="name-input"
+                />
+                <div className="confirm-buttons">
+                  <button
+                    className="btn btn-danger btn-sm"
+                    onClick={handleUnclaimWithNewName}
+                    disabled={unclaiming || !inputName.trim()}
+                  >
+                    {unclaiming ? '...' : 'Снять'}
+                  </button>
+                  <button
+                    className="btn btn-outline btn-sm"
+                    onClick={() => { setShowNameInput(false); setInputName('') }}
+                    disabled={unclaiming}
+                  >
+                    Отмена
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   )
