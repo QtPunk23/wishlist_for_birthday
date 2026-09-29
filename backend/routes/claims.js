@@ -1,43 +1,47 @@
 import { Router } from 'express'
-import db from '../db/database.js'
+import { claimGift, unclaimGift } from '../db/database.js'
 
 const router = Router()
 
 // Claim a gift
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const { giftId, guestName } = req.body
 
-  const gift = db.prepare('SELECT * FROM gifts WHERE id = ?').get(giftId)
-
-  if (!gift) {
-    return res.status(404).json({ error: 'Gift not found' })
+  if (!giftId || !guestName) {
+    return res.status(400).json({ error: 'giftId and guestName are required' })
   }
 
-  if (gift.status === 'claimed') {
-    return res.status(400).json({ error: 'Gift already claimed' })
+  try {
+    const gift = await claimGift(giftId, guestName)
+    if (!gift) {
+      return res.status(400).json({ error: 'Gift is already claimed or not found' })
+    }
+    res.json({ success: true, gift })
+  } catch (error) {
+    console.error('Error claiming gift:', error)
+    res.status(500).json({ error: 'Failed to claim gift' })
   }
-
-  db.prepare('UPDATE gifts SET status = ?, claimed_by = ?, claimed_at = ? WHERE id = ?')
-    .run('claimed', guestName, new Date().toISOString(), giftId)
-
-  res.json({ success: true, message: 'Gift claimed!' })
 })
 
-// Unclaim a gift (guest can unclaim their own)
-router.delete('/:giftId', (req, res) => {
-  const { giftId } = req.params
+// Unclaim a gift
+router.delete('/:giftId', async (req, res) => {
   const { guestName } = req.body
+  const { giftId } = req.params
 
-  const gift = db.prepare('SELECT * FROM gifts WHERE id = ?').get(giftId)
-
-  if (!gift || gift.claimed_by !== guestName) {
-    return res.status(403).json({ error: 'Not authorized' })
+  if (!guestName) {
+    return res.status(400).json({ error: 'guestName is required' })
   }
 
-  db.prepare('UPDATE gifts SET status = ?, claimed_by = ?, claimed_at = ? WHERE id = ?')
-    .run('available', null, null, giftId)
-
-  res.json({ success: true })
+  try {
+    const gift = await unclaimGift(giftId, guestName)
+    if (!gift) {
+      return res.status(403).json({ error: 'You have not claimed this gift' })
+    }
+    res.json({ success: true, gift })
+  } catch (error) {
+    console.error('Error unclaiming gift:', error)
+    res.status(500).json({ error: 'Failed to unclaim gift' })
+  }
 })
 
 export default router

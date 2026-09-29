@@ -3,8 +3,7 @@ import cors from 'cors'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { dirname, join } from 'path'
-import { initDatabase, default as db } from './db/database.js'
-import { seed } from './seed.js'
+import { initDatabase, seedDatabase } from './db/database.js'
 import giftsRouter from './routes/gifts.js'
 import claimsRouter from './routes/claims.js'
 
@@ -26,11 +25,11 @@ app.use((req, res, next) => {
 })
 
 // Initialize database
-initDatabase()
+await initDatabase()
 
 // Always seed on startup to ensure fresh data
 console.log('Seeding database...')
-seed()
+await seedDatabase()
 
 // API Routes
 app.use('/api/gifts', giftsRouter)
@@ -42,8 +41,8 @@ app.get('/api/health', (req, res) => {
 })
 
 // Seed endpoint (manual trigger)
-app.post('/api/seed', (req, res) => {
-  seed()
+app.post('/api/seed', async (req, res) => {
+  await seedDatabase()
   res.json({ success: true, message: 'Database seeded' })
 })
 

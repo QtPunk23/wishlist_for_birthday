@@ -1,0 +1,13 @@
+{
+  "name": "birthday-wishlist-bot",
+  "version": "1.0.0",
+  "description": "Birthday wishlist Telegram bot",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "node-telegram-bot-api": "^0.66.0",
+    "better-sqlite3": "^11.10.0"
+  }
+}

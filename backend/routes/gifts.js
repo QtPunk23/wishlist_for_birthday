@@ -1,62 +1,42 @@
 import { Router } from 'express'
-import { nanoid } from 'nanoid'
-import db from '../db/database.js'
+import { getAllGifts, getGiftById, seedDatabase } from '../db/database.js'
 
 const router = Router()
 
-// Get all gifts (for guests - status only, no claimed_by name)
-router.get('/', (req, res) => {
-  const gifts = db.prepare('SELECT id, name, description, url, category, claimed_by FROM gifts').all()
-  const result = gifts.map(g => ({
-    id: g.id,
-    name: g.name,
-    description: g.description,
-    url: g.url,
-    category: g.category,
-    status: g.claimed_by ? 'claimed' : 'available',
-  }))
-  res.json(result)
-})
-
-// Get all gifts with claim info (for admin)
-router.get('/admin', (req, res) => {
-  const gifts = db.prepare('SELECT * FROM gifts').all()
-  res.json(gifts)
-})
-
-// Get a single gift by ID
-router.get('/:id', (req, res) => {
-  const gift = db.prepare('SELECT id, name, description, url, category, claimed_by FROM gifts WHERE id = ?').get(req.params.id)
-
-  if (!gift) {
-    return res.status(404).json({ error: 'Gift not found' })
+// Get all gifts
+router.get('/', async (req, res) => {
+  try {
+    const gifts = await getAllGifts()
+    res.json(gifts)
+  } catch (error) {
+    console.error('Error fetching gifts:', error)
+    res.status(500).json({ error: 'Failed to fetch gifts' })
   }
-
-  res.json({
-    id: gift.id,
-    name: gift.name,
-    description: gift.description,
-    url: gift.url,
-    category: gift.category,
-    status: gift.claimed_by ? 'claimed' : 'available',
-  })
 })
 
-// Add new gift (admin only)
-router.post('/', (req, res) => {
-  const { name, description, url, category } = req.body
-  const id = nanoid()
-
-  db.prepare('INSERT INTO gifts (id, name, description, url, category) VALUES (?, ?, ?, ?, ?)')
-    .run(id, name, description, url, category)
-
-  res.status(201).json({ id, name, description, url, category })
+// Get gift by ID
+router.get('/:id', async (req, res) => {
+  try {
+    const gift = await getGiftById(req.params.id)
+    if (!gift) {
+      return res.status(404).json({ error: 'Gift not found' })
+    }
+    res.json(gift)
+  } catch (error) {
+    console.error('Error fetching gift:', error)
+    res.status(500).json({ error: 'Failed to fetch gift' })
+  }
 })
 
-// Delete gift (admin only)
-router.delete('/:id', (req, res) => {
-  db.prepare('DELETE FROM gifts WHERE id = ?').run(req.params.id)
-  res.json({ success: true })
+// Seed database
+router.post('/seed', async (req, res) => {
+  try {
+    await seedDatabase()
+    res.json({ success: true, message: 'Database seeded' })
+  } catch (error) {
+    console.error('Error seeding database:', error)
+    res.status(500).json({ error: 'Failed to seed database' })
+  }
 })
 
 export default router

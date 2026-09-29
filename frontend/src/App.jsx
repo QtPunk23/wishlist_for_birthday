@@ -7,7 +7,7 @@ import Sparkles from './components/Sparkles.jsx'
 import Garland from './components/Garland.jsx'
 import FloatingHearts from './components/FloatingHearts.jsx'
 
-const API_BASE = 'http://localhost:3001/api'
+const API_BASE = '/api'
 
 function getGuestName() {
   return localStorage.getItem('guestName') || ''
