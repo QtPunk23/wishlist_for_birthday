@@ -8,7 +8,7 @@
  * @param {D1Database} db - D1 database instance
  */
 export async function initDatabase(db) {
-  await db.exec(`
+  await db.prepare(`
     CREATE TABLE IF NOT EXISTS gifts (
       id TEXT PRIMARY KEY,
       name TEXT NOT NULL,
@@ -19,7 +19,7 @@ export async function initDatabase(db) {
       claimed_by TEXT,
       claimed_at TEXT
     )
-  `)
+  `).run()
 }
 
 /**

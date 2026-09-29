@@ -1,54 +1,53 @@
-/**
- * Seed data for the birthday wishlist database.
- * Matches the original backend/seed.js data.
- */
+// Helper to avoid encoding issues with Cyrillic characters
+function s(...codes) {
+  return String.fromCharCode(...codes)
+}
 
 const gifts = [
   // Спальня
-  { id: 'bedding-1124629048', name: 'Постельное бельё', description: 'Постельное бельё', url: 'https://www.wildberries.ru/catalog/1124629048/detail.aspx?size=1662908958', category: 'Спальня' },
-  { id: 'bedding-518383966', name: 'Постельное бельё', description: 'Постельное бельё', url: 'https://www.wildberries.ru/catalog/518383966/detail.aspx?size=716513965', category: 'Спальня' },
-  { id: 'pajama', name: 'Пижама с длинным рукавом и штанами', description: 'Пижама с длинным рукавом и штанами, размер S-M', url: '', category: 'Спальня' },
+  { id: 'bedding-1124629048', name: s(1055,1087,1089,1090,1077,1083,1100,1085,1086,1077,32,1073,1077,1083,1100,1105,1085,1086,1077), description: s(1055,1087,1089,1090,1077,1083,1100,1085,1086,1077,32,1073,1077,1083,1100,1105,1085,1086,1077), url: 'https://www.wildberries.ru/catalog/1124629048/detail.aspx?size=1662908958', category: s(1057,1087,1072,1083,1100,1085,1103) },
+  { id: 'bedding-518383966', name: s(1055,1087,1089,1090,1077,1083,1100,1085,1086,1077,32,1073,1077,1083,1100,1105,1085,1086,1077), description: s(1055,1087,1089,1090,1077,1083,1100,1085,1086,1077,32,1073,1077,1083,1100,1105,1085,1086,1077), url: 'https://www.wildberries.ru/catalog/518383966/detail.aspx?size=716513965', category: s(1057,1087,1072,1083,1100,1085,1103) },
+  { id: 'pajama', name: s(1055,1080,1078,1072,1084,1072,32,1089,32,1076,1083,1080,1085,1085,1099,1084,32,1088,1091,1082,1072,1074,1086,1084,32,1080,32,1096,1090,1072,1085,1072,1084,1080), description: s(1055,1080,1078,1072,1084,1072,32,1089,32,1076,1083,1080,1085,1085,1099,1084,32,1088,1091,1082,1072,1074,1086,1084,32,1080,32,1096,1090,1072,1085,1072,1084,1080,44,32,1088,1072,1079,1084,1077,1088,32,83,45,77), url: '', category: s(1057,1087,1072,1083,1100,1085,1103) },
 
   // Косметика
-  { id: 'brush-chicnie', name: 'Набор кистей CHICNIE flawless face brush set', description: 'Набор кистей для макияжа', url: 'https://goldapple.ru/99000035743-flawless-face-brush-set', category: 'Косметика' },
-  { id: 'brush-rad', name: 'Набор кистей RAD solid crush brush', description: 'Набор кистей для макияжа', url: 'https://goldapple.ru/19000139795-solid-crush-brush', category: 'Косметика' },
-  { id: 'tonic-verdad', name: 'Тоник для роста волос VERDAD hair growth warming', description: 'Тоник для роста волос', url: 'https://goldapple.ru/19000258699-hair-growth-warming', category: 'Косметика' },
-  { id: 'cream-set', name: 'Набор кремов-баттеров', description: 'Набор кремов-баттеров', url: 'https://www.wildberries.ru/catalog/168797807/detail.aspx?size=280524811', category: 'Косметика' },
-  { id: 'shampoo', name: 'Шампунь с коллагеном', description: 'Шампунь с коллагеном', url: 'https://www.wildberries.ru/catalog/233914719/detail.aspx?size=368697743', category: 'Косметика' },
-  { id: 'hair-mask', name: 'Маска для волос', description: 'Маска для волос', url: 'https://www.wildberries.ru/catalog/41352978/detail.aspx?size=83168336', category: 'Косметика' },
+  { id: 'brush-chicnie', name: s(1053,1072,1073,1086,1088,32,1082,1080,1089,1090,1077,1081,32,67,72,73,67,78,73,69,32,102,1088,97,119,108,101,115,115,32,102,97,99,101,32,98,114,117,115,104,32,115,101,116), description: s(1053,1072,1073,1086,1088,32,1082,1080,1089,1090,1077,1081,32,1076,1083,1103,32,1084,1072,1082,1080,1103,1072,1078,1072), url: 'https://goldapple.ru/99000035743-flawless-face-brush-set', category: s(1050,1086,1089,1084,1077,1090,1080,1082,1072) },
+  { id: 'brush-rad', name: s(1053,1072,1073,1086,1088,32,1082,1080,1089,1090,1077,1081,32,82,65,68,32,115,111,108,105,100,32,99,114,117,115,104,32,98,114,117,115,104), description: s(1053,1072,1073,1086,1088,32,1082,1080,1089,1090,1077,1081,32,1076,1083,1103,32,1084,1072,1082,1080,1103,1072,1078,1072), url: 'https://goldapple.ru/19000139795-solid-crush-brush', category: s(1050,1086,1089,1084,1077,1090,1080,1082,1072) },
+  { id: 'tonic-verdad', name: s(1058,1086,1085,1080,1082,32,1076,1083,1103,32,1088,1086,1089,1090,1072,32,1074,1086,1083,1086,1089,32,86,69,82,68,65,68,32,104,97,105,114,32,103,114,111,119,116,104,32,119,97,114,109,105,110,103), description: s(1058,1086,1085,1080,1082,32,1076,1083,1103,32,1088,1086,1089,1090,1072,32,1074,1086,1083,1086,1089), url: 'https://goldapple.ru/19000258699-hair-growth-warming', category: s(1050,1086,1089,1084,1077,1090,1080,1082,1072) },
+  { id: 'cream-set', name: s(1053,1072,1073,1086,1088,32,1082,1088,1077,1084,1086,1074,45,1073,1072,1090,1090,1077,1088,1086,1074), description: s(1053,1072,1073,1086,1088,32,1082,1088,1077,1084,1086,1074,45,1073,1072,1090,1090,1077,1088,1086,1074), url: 'https://www.wildberries.ru/catalog/168797807/detail.aspx?size=280524811', category: s(1050,1086,1089,1084,1077,1090,1080,1082,1072) },
+  { id: 'shampoo', name: s(1064,1072,1084,1087,1091,1085,1100,32,1089,32,1082,1086,1083,1083,1072,1075,1077,1085,1086,1084), description: s(1064,1072,1084,1087,1091,1085,1100,32,1089,32,1082,1086,1083,1083,1072,1075,1077,1085,1086,1084), url: 'https://www.wildberries.ru/catalog/233914719/detail.aspx?size=368697743', category: s(1050,1086,1089,1084,1077,1090,1080,1082,1072) },
+  { id: 'hair-mask', name: s(1052,1072,1089,1082,1072,32,1076,1083,1103,32,1074,1086,1083,1086,1089), description: s(1052,1072,1089,1082,1072,32,1076,1083,1103,32,1074,1086,1083,1086,1089), url: 'https://www.wildberries.ru/catalog/41352978/detail.aspx?size=83168336', category: s(1050,1086,1089,1084,1077,1090,1080,1082,1072) },
 
   // Здоровье и красота
-  { id: 'tonometer-1', name: 'Тонометр', description: 'Тонометр', url: 'https://www.wildberries.ru/catalog/7779362/detail.aspx?size=26714339', category: 'Здоровье и красота' },
-  { id: 'tonometer-2', name: 'Тонометр', description: 'Тонометр', url: 'https://www.wildberries.ru/catalog/4945731/detail.aspx?size=18054192', category: 'Здоровье и красота' },
-  { id: 'steamer-1', name: 'Пароочиститель', description: 'Пароочиститель', url: 'https://www.wildberries.ru/catalog/1223598034/detail.aspx?size=1800709840', category: 'Здоровье и красота' },
-  { id: 'steamer-2', name: 'Пароочиститель', description: 'Пароочиститель', url: 'https://www.wildberries.ru/catalog/1164795095/detail.aspx?size=1719401046', category: 'Здоровье и красота' },
+  { id: 'tonometer-1', name: s(1058,1086,1085,1086,1084,1077,1090,1088), description: s(1058,1086,1085,1086,1084,1077,1090,1088), url: 'https://www.wildberries.ru/catalog/7779362/detail.aspx?size=26714339', category: s(1047,1076,1086,1088,1086,1074,1100,1077,32,1080,32,1082,1088,1072,1089,1086,1090,1072) },
+  { id: 'tonometer-2', name: s(1058,1086,1085,1086,1084,1077,1090,1088), description: s(1058,1086,1085,1086,1084,1077,1090,1088), url: 'https://www.wildberries.ru/catalog/4945731/detail.aspx?size=18054192', category: s(1047,1076,1086,1088,1086,1074,1100,1077,32,1080,32,1082,1088,1072,1089,1086,1090,1072) },
+  { id: 'steamer-1', name: s(1055,1072,1088,1086,1086,1095,1080,1089,1090,1080,1090,1077,1083,1100), description: s(1055,1072,1088,1086,1086,1095,1080,1089,1090,1080,1090,1077,1083,1100), url: 'https://www.wildberries.ru/catalog/1223598034/detail.aspx?size=1800709840', category: s(1047,1076,1086,1088,1086,1074,1100,1077,32,1080,32,1082,1088,1072,1089,1086,1090,1072) },
+  { id: 'steamer-2', name: s(1055,1072,1088,1086,1086,1095,1080,1089,1090,1080,1090,1077,1083,1100), description: s(1055,1072,1088,1086,1086,1095,1080,1089,1090,1080,1090,1077,1083,1100), url: 'https://www.wildberries.ru/catalog/1164795095/detail.aspx?size=1719401046', category: s(1047,1076,1086,1088,1086,1074,1100,1077,32,1080,32,1082,1088,1072,1089,1086,1090,1072) },
 
   // Сумочка
-  { id: 'bag', name: 'Сумка', description: 'Небольшая сумка 25x40', url: 'https://www.wildberries.ru/catalog/584866960/detail.aspx?size=799515521', category: 'Сумочка' },
+  { id: 'bag', name: s(1057,1091,1084,1086,1095,1082,1072), description: s(1053,1077,1073,1086,1083,1100,1096,1072,1103,32,1089,1091,1084,1082,1072,32,50,53,120,52,48), url: 'https://www.wildberries.ru/catalog/584866960/detail.aspx?size=799515521', category: s(1057,1091,1084,1086,1095,1082,1072) },
 ]
 
-/**
- * Seed the database with initial gift data.
- * Clears existing data and inserts fresh records.
- * @param {D1Database} db - D1 database instance
- * @returns {Promise<number>} - Number of gifts seeded
- */
 export async function seedDatabase(db) {
-  // Clear existing data
-  await db.exec('DELETE FROM gifts')
+  await db.prepare(`
+    CREATE TABLE IF NOT EXISTS gifts (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      description TEXT,
+      url TEXT,
+      category TEXT,
+      status TEXT DEFAULT 'available',
+      claimed_by TEXT,
+      claimed_at TEXT
+    )
+  `).run()
 
-  // Insert all gifts
-  const stmt = db.prepare(
+  const insert = db.prepare(
     'INSERT INTO gifts (id, name, description, url, category) VALUES (?, ?, ?, ?, ?)'
   )
 
-  const batch = gifts.map(g =>
-    stmt.bind(g.id, g.name, g.description, g.url, g.category)
-  )
-
-  await db.batch(batch)
+  for (const gift of gifts) {
+    await insert.bind(gift.id, gift.name, gift.description, gift.url, gift.category).run()
+  }
 
   return gifts.length
 }
-
-export { gifts }
