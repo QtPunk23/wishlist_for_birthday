@@ -63,6 +63,10 @@ export default {
       return handleApi(request, env, pathname, method)
     }
 
+    if (pathname === '/admin' || pathname === '/admin/') {
+      return getAdminHTML()
+    }
+
     if (pathname === '/admin' || pathname.startsWith('/admin/')) {
       return getAdminHTML()
     }
