@@ -24,13 +24,6 @@ app.use((req, res, next) => {
   next()
 })
 
-// Initialize database
-initDatabase()
-
-// Always seed on startup to ensure fresh data
-console.log('Seeding database...')
-seedDatabase()
-
 // API Routes
 app.use('/api/gifts', giftsRouter)
 app.use('/api/claims', claimsRouter)
@@ -67,8 +60,21 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Internal server error' })
 })
 
-app.listen(PORT, '0.0.0.0', () => {
+// Start server first, then initialize database
+app.listen(PORT, '0.0.0.0', async () => {
   console.log(`Server running on http://0.0.0.0:${PORT}`)
   console.log(`Frontend: http://0.0.0.0:${PORT}/`)
   console.log(`API: http://0.0.0.0:${PORT}/api`)
+
+  try {
+    console.log('Initializing database...')
+    initDatabase()
+    console.log('Database initialized')
+
+    console.log('Seeding database...')
+    seedDatabase()
+    console.log('Database seeded')
+  } catch (error) {
+    console.error('Database initialization error:', error)
+  }
 })
