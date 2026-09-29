@@ -4,7 +4,7 @@ import { claimGift, unclaimGift } from '../db/database.js'
 const router = Router()
 
 // Claim a gift
-router.post('/', async (req, res) => {
+router.post('/', (req, res) => {
   const { giftId, guestName } = req.body
 
   if (!giftId || !guestName) {
@@ -12,11 +12,11 @@ router.post('/', async (req, res) => {
   }
 
   try {
-    const gift = await claimGift(giftId, guestName)
-    if (!gift) {
+    const success = claimGift(giftId, guestName)
+    if (!success) {
       return res.status(400).json({ error: 'Gift is already claimed or not found' })
     }
-    res.json({ success: true, gift })
+    res.json({ success: true })
   } catch (error) {
     console.error('Error claiming gift:', error)
     res.status(500).json({ error: 'Failed to claim gift' })
@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
 })
 
 // Unclaim a gift
-router.delete('/:giftId', async (req, res) => {
+router.delete('/:giftId', (req, res) => {
   const { guestName } = req.body
   const { giftId } = req.params
 
@@ -33,11 +33,11 @@ router.delete('/:giftId', async (req, res) => {
   }
 
   try {
-    const gift = await unclaimGift(giftId, guestName)
-    if (!gift) {
+    const success = unclaimGift(giftId, guestName)
+    if (!success) {
       return res.status(403).json({ error: 'You have not claimed this gift' })
     }
-    res.json({ success: true, gift })
+    res.json({ success: true })
   } catch (error) {
     console.error('Error unclaiming gift:', error)
     res.status(500).json({ error: 'Failed to unclaim gift' })

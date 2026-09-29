@@ -25,11 +25,11 @@ app.use((req, res, next) => {
 })
 
 // Initialize database
-await initDatabase()
+initDatabase()
 
 // Always seed on startup to ensure fresh data
 console.log('Seeding database...')
-await seedDatabase()
+seedDatabase()
 
 // API Routes
 app.use('/api/gifts', giftsRouter)
@@ -41,8 +41,8 @@ app.get('/api/health', (req, res) => {
 })
 
 // Seed endpoint (manual trigger)
-app.post('/api/seed', async (req, res) => {
-  await seedDatabase()
+app.post('/api/seed', (req, res) => {
+  seedDatabase()
   res.json({ success: true, message: 'Database seeded' })
 })
 
@@ -70,6 +70,5 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`)
   console.log(`Frontend: http://localhost:${PORT}/`)
-  console.log(`Admin: http://localhost:${PORT}/admin`)
   console.log(`API: http://localhost:${PORT}/api`)
 })

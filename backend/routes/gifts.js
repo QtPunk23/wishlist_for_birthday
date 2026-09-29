@@ -4,9 +4,9 @@ import { getAllGifts, getGiftById, seedDatabase } from '../db/database.js'
 const router = Router()
 
 // Get all gifts
-router.get('/', async (req, res) => {
+router.get('/', (req, res) => {
   try {
-    const gifts = await getAllGifts()
+    const gifts = getAllGifts()
     res.json(gifts)
   } catch (error) {
     console.error('Error fetching gifts:', error)
@@ -15,9 +15,9 @@ router.get('/', async (req, res) => {
 })
 
 // Get gift by ID
-router.get('/:id', async (req, res) => {
+router.get('/:id', (req, res) => {
   try {
-    const gift = await getGiftById(req.params.id)
+    const gift = getGiftById(req.params.id)
     if (!gift) {
       return res.status(404).json({ error: 'Gift not found' })
     }
@@ -29,9 +29,9 @@ router.get('/:id', async (req, res) => {
 })
 
 // Seed database
-router.post('/seed', async (req, res) => {
+router.post('/seed', (req, res) => {
   try {
-    await seedDatabase()
+    seedDatabase()
     res.json({ success: true, message: 'Database seeded' })
   } catch (error) {
     console.error('Error seeding database:', error)

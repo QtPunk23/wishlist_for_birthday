@@ -2,17 +2,14 @@
   "name": "birthday-wishlist",
   "version": "1.0.0",
   "private": true,
-  "description": "Birthday wishlist app - guests can claim gifts, birthday girl sees no claim status",
+  "description": "Birthday wishlist app - guests can claim gifts",
   "scripts": {
-    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\" \"npm run dev:admin\"",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
     "dev:backend": "cd backend && npm run dev",
     "dev:frontend": "cd frontend && npm run dev",
-    "dev:admin": "cd admin && npm run dev",
-    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install && cd ../admin && npm install && cd ../worker && npm install",
     "build": "npm run build:frontend",
     "build:frontend": "cd frontend && npm run build",
-    "deploy": "cd worker && npm run deploy",
-    "dev:worker": "cd worker && npm run dev"
+    "start": "cd backend && npm start"
   },
   "devDependencies": {
     "concurrently": "^8.2.0"
