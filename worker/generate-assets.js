@@ -14,5 +14,5 @@ for (const file of files) {
   output += `export const ${key} = ${JSON.stringify(content)}\n`
 }
 
-writeFileSync(join(__dirname, 'src', 'assets.js'), output)
+writeFileSync(join(__dirname, 'src', 'assets.js'), output, 'utf-8')
 console.log('Generated assets.js with', files.length, 'files')
