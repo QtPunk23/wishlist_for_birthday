@@ -26,7 +26,7 @@ const gifts = [
 
 export function seed() {
   db.exec('DELETE FROM gifts')
-  const insert = db.prepare('INSERT OR IGNORE INTO gifts (id, name, description, url, category) VALUES (?, ?, ?, ?, ?)')
+  const insert = db.prepare('INSERT INTO gifts (id, name, description, url, category) VALUES (?, ?, ?, ?, ?)')
   for (const gift of gifts) {
     insert.run(gift.id, gift.name, gift.description, gift.url, gift.category)
   }
