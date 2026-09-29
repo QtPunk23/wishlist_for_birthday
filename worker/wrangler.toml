@@ -8,11 +8,7 @@ binding = "DB"
 database_name = "birthday-wishlist"
 database_id = "4d7ef95a-b8cf-439c-908b-f28e95a39317"
 
-# Static assets - frontend build output
-[assets]
-directory = "assets"
-binding = "ASSETS"
-not_found_handling = "single-page-application"
+# Static assets are embedded in the worker code
 
 # Environment variables
 [vars]

@@ -1,38 +1,15 @@
-const frontendHTML = `<!DOCTYPE html>
-<html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐱</text></svg>" />
-    <title>Виш-лист 🎁</title>
-    <link rel="stylesheet" href="/assets/index-3aprlJl5.css">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/assets/index-C14AnF-l.js"></script>
-  </body>
-</html>`
+import {
+  index_html,
+  index_3aprlJl5_css,
+  index_C14AnF_l_js,
+  admin_html,
+  admin_index_html,
+  index_DkwQu_hQ_css,
+  index_D2eYraT6_js,
+} from './assets.js'
 
-const adminHTML = `<!DOCTYPE html>
-<html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐱</text></svg>" />
-    <title>Панель именинницы 🎂</title>
-    <link rel="stylesheet" href="/admin/assets/index-DkwQu-hQ.css">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/admin/assets/index-D2eYraT6.js"></script>
-  </body>
-</html>`
+const frontendHTML = index_html
+const adminHTML = admin_html
 
 export function getFrontendHTML() {
   return new Response(frontendHTML, {
@@ -48,6 +25,38 @@ export function getAdminHTML() {
     headers: {
       'Content-Type': 'text/html; charset=utf-8',
       'Cache-Control': 'no-store, no-cache, must-revalidate',
+    },
+  })
+}
+
+export function getAsset(filename) {
+  const assets = {
+    'index.html': index_html,
+    'index-3aprlJl5.css': index_3aprlJl5_css,
+    'index-C14AnF-l.js': index_C14AnF_l_js,
+    'admin.html': admin_html,
+    'admin-index.html': admin_index_html,
+    'index-DkwQu-hQ.css': index_DkwQu_hQ_css,
+    'index-D2eYraT6.js': index_D2eYraT6_js,
+  }
+
+  const content = assets[filename]
+  if (!content) return new Response('Not found', { status: 404 })
+
+  const mimeTypes = {
+    '.html': 'text/html; charset=utf-8',
+    '.css': 'text/css; charset=utf-8',
+    '.js': 'application/javascript; charset=utf-8',
+    '.svg': 'image/svg+xml',
+  }
+
+  const ext = filename.slice(filename.lastIndexOf('.'))
+  const contentType = mimeTypes[ext] || 'application/octet-stream'
+
+  return new Response(content, {
+    headers: {
+      'Content-Type': contentType,
+      'Cache-Control': 'public, max-age=31536000, immutable',
     },
   })
 }

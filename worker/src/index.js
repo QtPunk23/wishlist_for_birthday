@@ -10,7 +10,7 @@ import {
   unclaimGift,
 } from './db.js'
 import { seedDatabase } from './seed.js'
-import { getFrontendHTML, getAdminHTML } from './static.js'
+import { getFrontendHTML, getAdminHTML, getAsset } from './static.js'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -67,7 +67,7 @@ export default {
       return getAdminHTML()
     }
 
-    if (pathname === '/admin' || pathname.startsWith('/admin/')) {
+    if (pathname === '/admin' || pathname === '/admin') {
       return getAdminHTML()
     }
 
@@ -75,8 +75,9 @@ export default {
       return getFrontendHTML()
     }
 
-    // Serve static assets from assets binding
-    return env.ASSETS.fetch(request)
+    // Serve embedded static assets
+    const assetPath = pathname.replace(/^\//, '')
+    return getAsset(assetPath)
   },
 }
 
