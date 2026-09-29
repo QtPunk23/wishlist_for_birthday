@@ -67,8 +67,8 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Internal server error' })
 })
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`)
-  console.log(`Frontend: http://localhost:${PORT}/`)
-  console.log(`API: http://localhost:${PORT}/api`)
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on http://0.0.0.0:${PORT}`)
+  console.log(`Frontend: http://0.0.0.0:${PORT}/`)
+  console.log(`API: http://0.0.0.0:${PORT}/api`)
 })
