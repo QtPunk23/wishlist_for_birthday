@@ -48,14 +48,8 @@ app.post('/api/seed', async (req, res) => {
 
 // Serve static files from frontend/dist
 const frontendDist = join(__dirname, '..', 'frontend', 'dist')
-const adminDist = join(__dirname, '..', 'admin', 'dist')
 
 app.use(express.static(frontendDist))
-
-// Admin routes - serve admin SPA
-app.get('/admin', (req, res) => {
-  res.sendFile(join(adminDist, 'index.html'))
-})
 
 // Frontend SPA fallback - must be after API routes
 app.get('*', (req, res) => {

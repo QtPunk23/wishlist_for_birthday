@@ -3,7 +3,7 @@ services:
     name: birthday-wishlist
     env: node
     plan: free
-    buildCommand: npm install && cd frontend && npm install && cd ../admin && npm install && cd .. && npm run build
+    buildCommand: npm install && cd frontend && npm install && cd .. && npm run build
     startCommand: cd backend && npm install && npm start
     envVars:
       - key: NODE_ENV
