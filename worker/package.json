@@ -1,0 +1,26 @@
+{
+  "name": "birthday-wishlist-worker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "build": "cd ../frontend && npm run build && cd ../admin && npm run build",
+    "build:frontend": "cd ../frontend && npm run build",
+    "build:admin": "cd ../admin && npm run build",
+    "tail": "wrangler tail"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240909.0",
+    "wrangler": "^3.78.0"
+  },
+  "dependencies": {
+    "nanoid": "^5.0.7"
+  },
+  "allowScripts": {
+    "esbuild@0.17.19": true,
+    "sharp@0.33.5": true,
+    "workerd@1.20250718.0": true
+  }
+}

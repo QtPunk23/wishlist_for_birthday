@@ -1,0 +1,19 @@
+name = "birthday-wishlist"
+main = "src/index.js"
+compatibility_date = "2024-09-09"
+
+# D1 Database binding
+[[d1_databases]]
+binding = "DB"
+database_name = "birthday-wishlist"
+database_id = "YOUR_DATABASE_ID_HERE"
+
+# Static assets - frontend build output
+[assets]
+directory = "../frontend/dist"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+
+# Environment variables
+[vars]
+ENVIRONMENT = "production"

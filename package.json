@@ -8,7 +8,13 @@
     "dev:backend": "cd backend && npm run dev",
     "dev:frontend": "cd frontend && npm run dev",
     "dev:admin": "cd admin && npm run dev",
-    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install && cd ../admin && npm install"
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install && cd ../admin && npm install && cd ../worker && npm install",
+    "build": "npm run build:frontend && npm run build:admin && npm run copy:admin",
+    "build:frontend": "cd frontend && npm run build",
+    "build:admin": "cd admin && npm run build",
+    "copy:admin": "node scripts/copy-admin.js",
+    "deploy": "cd worker && npm run deploy",
+    "dev:worker": "cd worker && npm run dev"
   },
   "devDependencies": {
     "concurrently": "^8.2.0"
